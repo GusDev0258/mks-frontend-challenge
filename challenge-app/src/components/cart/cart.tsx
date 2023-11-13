@@ -75,7 +75,7 @@ const CheckoutButton = styled.button`
 `
 
 const TotalPrice = styled.p`
-  width: 100%;
+  width: 80%;
   color: var(--white);
   font-size: 28px;
   font-style: normal;
@@ -92,7 +92,7 @@ interface CartItemProps {
   onRemoveProduct: (productId: string) => void;
 }
 
-export const Cart = ({onRemoveProduct,onClose }: CartItemProps) => {
+export const Cart = () => {
   const { cartItems, removeFromCart, updateCartItemQuantity, totalPrice, isCartOpen, setIsCartOpen } = useCart();
 
   
@@ -124,7 +124,7 @@ export const Cart = ({onRemoveProduct,onClose }: CartItemProps) => {
           })}
         </CartItemList>
         <TotalPrice>
-          Total: R${totalPrice}
+          Total: <span> R${totalPrice} </span>
         </TotalPrice>
         <CheckoutButton>
           Finalizar Compra

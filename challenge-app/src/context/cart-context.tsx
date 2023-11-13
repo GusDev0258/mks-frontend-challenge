@@ -14,9 +14,9 @@ export interface CartContextType {
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   totalItems: number;
   totalPrice: number;
-  itemCount: number; // Add itemCount property
-  isCartOpen: boolean; // Add isCartOpen property
-  setIsCartOpen: (open: boolean) => void; // Add setIsCartOpen function
+  itemCount: number; 
+  isCartOpen: boolean; 
+  setIsCartOpen: (open: boolean) => void; 
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -35,8 +35,8 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<ProductCartItem[]>([]);
-  const [itemCount, setItemCount] = useState(0); // Initialize itemCount state
-  const [isCartOpen, setIsCartOpen] = useState(false); // Initialize isCartOpen state
+  const [itemCount, setItemCount] = useState(0);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product: Product) => {
     const existingItem = cartItems.find((item) => item.product.id === product.id);
@@ -46,12 +46,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     } else {
       setCartItems([...cartItems, { product, quantity: 1 }]);
     }
-    setItemCount(itemCount + 1); // Update itemCount when adding items to the cart
+    setItemCount(itemCount + 1); 
   };
 
   const removeFromCart = (productId: string) => {
     setCartItems(cartItems.filter((item) => item.product.id !== productId));
-    setItemCount(itemCount - 1); // Update itemCount when removing items from the cart
+    setItemCount(itemCount - 1); 
   };
 
   const updateCartItemQuantity = (productId: string, quantity: number) => {
