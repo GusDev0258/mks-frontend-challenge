@@ -17,6 +17,9 @@ const CartContainer = styled.section`
   top: 0;
   background-color: var(--primary);
   box-shadow: -5px 0px 6px 0px rgba(0, 0, 0, 0.13);
+  @media (max-width: 768px) {
+    width: 330px;
+  }
 `;
 const CartHeader = styled.header`
   width: 80%;
@@ -30,6 +33,9 @@ const CartHeader = styled.header`
   color: var(--white);
   margin-left: 47px;
   margin-right: 22px;
+  @media (max-width: 768px) {
+    margin-top: 1.5rem;
+  }
 `;
 const CartCloseButton = styled.button`
   color: var(--white);
@@ -85,12 +91,7 @@ const TotalPrice = styled.p`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
-
-interface CartItemProps {
-  onClose: () => void;
-  onRemoveProduct: (productId: string) => void;
-}
+`;
 
 export const Cart = () => {
   const { cartItems, removeFromCart, updateCartItemQuantity, totalPrice, isCartOpen, setIsCartOpen } = useCart();

@@ -41,12 +41,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const addToCart = (product: Product) => {
     const existingItem = cartItems.find((item) => item.product.id === product.id);
 
-    if (existingItem) {
-      updateCartItemQuantity(existingItem.product.id, existingItem.quantity + 1);
-    } else {
+    if (!existingItem) {
       setCartItems([...cartItems, { product, quantity: 1 }]);
+      setItemCount(itemCount + 1); 
     }
-    setItemCount(itemCount + 1); 
   };
 
   const removeFromCart = (productId: string) => {

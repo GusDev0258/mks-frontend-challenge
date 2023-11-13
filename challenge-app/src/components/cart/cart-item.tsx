@@ -18,6 +18,13 @@ const CartItemContainer = styled.li`
   justify-content: space-around;
   padding: 1.25rem;
   position: relative;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 220px;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const CartItemRemoveButton = styled.button`
@@ -34,6 +41,13 @@ const CartItemRemoveButton = styled.button`
   right: -6px;
   border: none;
   cursor: pointer;
+  @media (max-width: 768px) {
+    background: transparent;
+    font-size: 42px;
+    top: 20px;
+    right: 24px;
+    color: var(--black);
+  }
 `;
 
 const ProductName = styled.p`
@@ -42,8 +56,14 @@ const ProductName = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 17px;
-  max-width: 16ch;
   margin-left: 20px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    line-height: 19px;
+    grid-row: 2;
+    grid-column: 1/3;
+    width: 100%;
+  }
 `;
 
 const ProductPrice = styled.p`
@@ -52,6 +72,32 @@ const ProductPrice = styled.p`
   font-style: normal;
   font-weight: 700;
   line-height: 17px;
+  @media (max-width: 768px) {
+    color: var(--white);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 15px; 
+    background: var(--grey);
+    width: 84px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: 3;
+  }
+`;
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 768px) {
+    grid-row: 1;
+    grid-column: 1/3;
+  }
 `;
 
 type CartItemProps = {
@@ -78,12 +124,15 @@ export const CartItem = ({ product, onRemoveProduct, onItemCountChange }: CartIt
 
   return (
     <CartItemContainer>
-      <Image
-        src={product.photo}
-        alt={product.name}
-        width={50}
-        height={60}
-      />
+      <ImageContainer>
+        <Image
+          src={product.photo}
+          alt={product.name}
+          width={window.innerWidth >= 768 ? 50: 90}
+          height={window.innerWidth >= 768 ? 60: 105}
+        />
+      </ImageContainer>
+
       <ProductName>{product.name}</ProductName>
       <CountButton
         itemCount={itemCount}
