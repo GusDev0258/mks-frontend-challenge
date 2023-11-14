@@ -37,11 +37,13 @@ const ItemCount = styled.p`
 
 const CartButton = () => {
   const { itemCount, setIsCartOpen } = useCart();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isBrowser = typeof window !== "undefined";
+  const initialWidth = isBrowser ? window.innerWidth : 0;
+  const [windowWidth, setWindowWidth] = useState<number>(initialWidth);
 
   useEffect(() => {
     function handleResize() {
-      setWindowWidth(window.innerWidth);
+      setWindowWidth(isBrowser ? window.innerWidth : 0);
     }
 
     window.addEventListener("resize", handleResize);

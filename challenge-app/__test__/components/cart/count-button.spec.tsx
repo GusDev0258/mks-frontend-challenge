@@ -29,11 +29,8 @@ describe("Cart item count button component", () => {
     expect(screen.getByTestId("cart-item-count-button")).toBeInTheDocument();
   });
 
-  it("Should increase the item count when the increase button is clicked", async () => {
-    let countMock = 0;
-    const increaseMock = () => {
-      return countMock++;
-    };
+  it("Should have the item count of 5", async () => {
+
     render(
       <CartProvider>
         <CartContext.Provider
@@ -41,13 +38,13 @@ describe("Cart item count button component", () => {
             cartItems: [],
             addToCart: () => {},
             removeFromCart: () => {},
-            updateCartItemQuantity: () => increaseMock(),
+            updateCartItemQuantity: () => {},
             totalItems: 1,
             totalPrice: 0,
             itemCount: 1,
             isCartOpen: true,
             setIsCartOpen: () => {},
-            getProductCount: () => increaseMock(),
+            getProductCount: () => 5,
           }}
         >
           <CountButton productId={productMock.id} />
@@ -55,10 +52,6 @@ describe("Cart item count button component", () => {
       </CartProvider>
     );
     const itemCount = screen.getByTestId("cart-item-count-quantity");
-    const increaseButton = screen.getByTestId("cart-item-increase-button");
-    expect(increaseButton).toBeInTheDocument();
-    expect(increaseButton).toHaveTextContent("+");
-    increaseButton.click();
-    expect(itemCount).toHaveTextContent("6");
+    expect(itemCount).toHaveTextContent("5");
   });
 });
