@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import styled from "styled-components";
 import Image, { StaticImageData } from "next/image";
 import ShoppingBagIcon from "@/assets/icons/shopping-bag.svg";
