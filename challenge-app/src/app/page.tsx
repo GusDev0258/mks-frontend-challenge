@@ -72,10 +72,8 @@ const Footer = styled.footer`
 
 export default function Home() {
   const queryClient = new QueryClient();
-  const [itemCount, setItemCount] = useState(0);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -91,30 +89,14 @@ export default function Home() {
     };
   }, []);
 
-
-  const handleItemCount = (count: number) => {
-    setItemCount(count);
-  };
-
-  const handleCartOpen = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
   const handleCartItems = (items: Product[]) => {
     setCartItems(items);
-  };
-
-  const handleRemoveFromCart = (productId: string) => {
-    setCartItems(cartItems.filter((item) => item.id !== productId));
-    setItemCount((prevCount) => prevCount - 1)
   };
 
   return (
     <Container>
       <CartProvider>
         <Cart
-          onClose={handleCartOpen}
-          onRemoveProduct={handleRemoveFromCart}
         />
       <Header>
         <LogoContainer>
@@ -123,7 +105,7 @@ export default function Home() {
         <CartButton/>
       </Header>
       <QueryClientProvider client={queryClient}>
-        <ProductGrid itemsCount={handleItemCount} itemsList={handleCartItems} />
+        <ProductGrid  itemsList={handleCartItems} />
       </QueryClientProvider>
       </CartProvider>
       <Footer>

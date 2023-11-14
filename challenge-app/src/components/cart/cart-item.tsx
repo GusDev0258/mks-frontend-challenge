@@ -4,6 +4,7 @@ import Product from "../product/product";
 import Image from "next/image";
 import { CountButton } from "./count-button";
 import { useState } from "react";
+import { useCart } from "@/context/cart-context";
 
 const CartItemContainer = styled.li`
   width: 80%;
@@ -77,7 +78,7 @@ const ProductPrice = styled.p`
     font-size: 15px;
     font-style: normal;
     font-weight: 700;
-    line-height: 15px; 
+    line-height: 15px;
     background: var(--grey);
     width: 84px;
     height: 35px;
@@ -106,42 +107,32 @@ type CartItemProps = {
   onItemCountChange: (product: Product, newCount: number) => void;
 };
 
-export const CartItem = ({ product, onRemoveProduct, onItemCountChange }: CartItemProps) => {
-  const [itemCount, setItemCount] = useState(1);
+export const CartItem = ({ product, onRemoveProduct }: CartItemProps) => {
+  const { getProductCount } = useCart();
+  const itemCount = getProductCount(product.id);
   const itemPrice = (parseFloat(product.price) * itemCount).toFixed(2);
 
-  const handleDecrease = () => {
-    if (itemCount > 1) {
-      setItemCount(itemCount - 1);
-      onItemCountChange(product, itemCount - 1);
-    }
-  };
-
-  const handleIncrease = () => {
-    setItemCount(itemCount + 1);
-    onItemCountChange(product, itemCount + 1);
+  const handleRemoveProduct = () => {
+    onRemoveProduct(product.id);
   };
 
   return (
-    <CartItemContainer>
+    <CartItemContainer data-testid="cart-item-component">
       <ImageContainer>
         <Image
           src={product.photo}
           alt={product.name}
-          width={window.innerWidth >= 768 ? 50: 90}
-          height={window.innerWidth >= 768 ? 60: 105}
+          width={window.innerWidth >= 768 ? 50 : 90}
+          height={window.innerWidth >= 768 ? 60 : 105}
         />
       </ImageContainer>
 
       <ProductName>{product.name}</ProductName>
-      <CountButton
-        itemCount={itemCount}
-        onDecrease={handleDecrease}
-        onIncrease={handleIncrease}
-      />
+      <CountButton productId={product.id} />
       <ProductPrice>R${itemPrice.replace(".00", "")}</ProductPrice>
       <CartItemRemoveButton
-        onClick={() => onRemoveProduct(product.id)}
+        onClick={handleRemoveProduct}
+        data-testid="cart-item-remove-button"
       >
         X
       </CartItemRemoveButton>

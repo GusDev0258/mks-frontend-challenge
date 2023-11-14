@@ -56,13 +56,13 @@ const CartButton = () => {
   };
 
   return (
-    <CartButtonContainer onClick={handleCartOpen}>
+    <CartButtonContainer onClick={handleCartOpen} data-testid="cart-button">
       {windowWidth >= 768 ? (
         <Image src={cartIcon} alt="cart icon" />
       ) : (
         <Image src={cartIconMin} alt="cart icon" />
       )}
-      <ItemCount>{itemCount}</ItemCount>
+      <ItemCount data-testid="cart-button-item-count">{itemCount}</ItemCount>
     </CartButtonContainer>
   );
 };

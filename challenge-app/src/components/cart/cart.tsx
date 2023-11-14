@@ -78,7 +78,7 @@ const CheckoutButton = styled.button`
   text-transform: uppercase;
   margin: 0 auto;
   cursor: pointer;
-`
+`;
 
 const TotalPrice = styled.p`
   width: 80%;
@@ -94,43 +94,52 @@ const TotalPrice = styled.p`
 `;
 
 export const Cart = () => {
-  const { cartItems, removeFromCart, updateCartItemQuantity, totalPrice, isCartOpen, setIsCartOpen } = useCart();
+  const {
+    cartItems,
+    removeFromCart,
+    updateCartItemQuantity,
+    totalPrice,
+    isCartOpen,
+    setIsCartOpen,
+  } = useCart();
 
-  
   const handleItemCountChange = (product: Product, newCount: number) => {
     updateCartItemQuantity(product.id, newCount);
   };
 
-
   return (
-    isCartOpen &&
-      <CartContainer>
+    isCartOpen && (
+      <CartContainer data-testid="cart">
         <CartHeader>
           <p>
             Carrinho <br /> de compras
           </p>
-          <CartCloseButton onClick={() => setIsCartOpen(false)}>X</CartCloseButton>
+          <CartCloseButton
+            onClick={() => setIsCartOpen(false)}
+            data-testid="cart-close-button"
+          >
+            X
+          </CartCloseButton>
         </CartHeader>
-        <CartItemList>
-        {cartItems &&
-          cartItems.map((cartItem: ProductCartItem) => {
-            return (
-              <CartItem
-                product={cartItem.product}
-                key={cartItem.product.id}
-                onRemoveProduct={removeFromCart}
-                onItemCountChange={handleItemCountChange}
-              />
-            );
-          })}
+        <CartItemList data-testid="items-list">
+          {cartItems &&
+            cartItems.map((cartItem: ProductCartItem) => {
+              return (
+                <CartItem
+                  product={cartItem.product}
+                  key={cartItem.product.id}
+                  onRemoveProduct={removeFromCart}
+                  onItemCountChange={handleItemCountChange}
+                />
+              );
+            })}
         </CartItemList>
-        <TotalPrice>
-          Total: <span> R${totalPrice} </span>
+        <TotalPrice data-testid="cart-total-price">
+          Total: <span>R${totalPrice}</span>
         </TotalPrice>
-        <CheckoutButton>
-          Finalizar Compra
-        </CheckoutButton>
+        <CheckoutButton>Finalizar Compra</CheckoutButton>
       </CartContainer>
+    )
   );
 };
 

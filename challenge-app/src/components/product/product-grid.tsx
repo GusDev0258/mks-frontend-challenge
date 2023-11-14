@@ -31,16 +31,16 @@ const ProductGridContainer = styled.main`
 
 interface ProductGridProps {
   itemsList: (products: Product[]) => void;
-  itemsCount: (count: number) => void;
 }
 
-export const ProductGrid = ({itemsList, itemsCount}: ProductGridProps) => {
+export const ProductGrid = ({itemsList}: ProductGridProps) => {
+  
   const { isLoading, error, data: products } = useQuery({
     queryFn: async () => await requestProducts(),
     queryKey: "cart-products",
   });
+
   const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [itemCount, setItemCount] = useState(0);
 
   const { addToCart } = useCart();
 
@@ -50,8 +50,7 @@ export const ProductGrid = ({itemsList, itemsCount}: ProductGridProps) => {
 
   useEffect(() => {
     itemsList(cartItems);
-    itemsCount(itemCount);
-  },[cartItems, itemCount])
+  },[cartItems])
 
   return (
   <ProductGridContainer>

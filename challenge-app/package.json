@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch",
+    "test": "jest",
     "coverage": "jest --coverage"
   },
   "dependencies": {
     "@next/font": "^14.0.2",
+    "@types/jest": "^29.5.8",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",

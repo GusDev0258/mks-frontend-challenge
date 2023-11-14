@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import { useCart } from "@/context/cart-context";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -69,7 +70,7 @@ const CartItemCount = styled.p`
   @media (max-width: 768px) {
     font-size: 20px;
   }
-`
+`;
 
 const CountLabel = styled.p`
   color: var(--black);
@@ -83,26 +84,42 @@ const CountLabel = styled.p`
   @media (max-width: 768px) {
     display: none;
   }
-`
+`;
 
 type CountButtonProps = {
-  itemCount: number;
-  onDecrease: () => void;
-  onIncrease: () => void;
+  productId: string;
 };
 
-export const CountButton = ({ itemCount, onDecrease, onIncrease }: CountButtonProps) => {
+export const CountButton = ({ productId }: CountButtonProps) => {
+  const { updateCartItemQuantity, getProductCount } = useCart();
+  const productCount = getProductCount(productId);
+
+  const handleDecrease = () => {
+    if (productCount > 1) {
+      updateCartItemQuantity(productId, productCount - 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    updateCartItemQuantity(productId, productCount + 1);
+  };
 
   return (
-    <CountButtonContainer>
+    <CountButtonContainer data-testid="cart-item-count-button">
       <CountLabel>Qtd:</CountLabel>
-      <CountButtonDecrease onClick={onDecrease}>
+      <CountButtonDecrease
+        onClick={handleDecrease}
+        data-testid="cart-item-decrease-button"
+      >
         -
       </CountButtonDecrease>
-      <CartItemCount>
-        {itemCount}
+      <CartItemCount data-testid="cart-item-count-quantity">
+        {productCount}
       </CartItemCount>
-      <CountButtonIncrease onClick={onIncrease}>
+      <CountButtonIncrease
+        onClick={handleIncrease}
+        data-testid="cart-item-increase-button"
+      >
         +
       </CountButtonIncrease>
     </CountButtonContainer>
