@@ -129,7 +129,7 @@ export const CartItem = ({ product, onRemoveProduct }: CartItemProps) => {
 
       <ProductName>{product.name}</ProductName>
       <CountButton productId={product.id} />
-      <ProductPrice>R${itemPrice.replace(".00", "")}</ProductPrice>
+      <ProductPrice data-testid="cart-item-price">R${itemPrice.replace(".00", "")}</ProductPrice>
       <CartItemRemoveButton
         onClick={handleRemoveProduct}
         data-testid="cart-item-remove-button"

@@ -116,9 +116,10 @@ export const Product = ({product, onAddToCart}: ProductProps) => {
   }
 
   return (
-    <ProductContainer key={product.id}>
+    <ProductContainer key={product.id} data-testid="product">
       <ImageContainer>
       <Image 
+        data-testid="product-photo"
         src={product.photo} 
         alt={product.name} 
         width={111}
@@ -127,11 +128,11 @@ export const Product = ({product, onAddToCart}: ProductProps) => {
       </ImageContainer>
 
       <ProductInfo>
-        <ProductTitle>{product.name}</ProductTitle>
-        <ProductPrice>R${product.price.replace(".00", "")}</ProductPrice>
+        <ProductTitle data-testid="product-name">{product.name}</ProductTitle>
+        <ProductPrice data-testid="product-price">R${product.price.replace(".00", "")}</ProductPrice>
       </ProductInfo>
-      <ProductDescription>{product.description}</ProductDescription>
-      <ActionButton onClick={handleAddToCart}>
+      <ProductDescription data-testid="product-description">{product.description}</ProductDescription>
+      <ActionButton onClick={handleAddToCart} data-testid="product-buy">
         <Image 
           src={ShoppingBagIcon} 
           alt="add to cart icon"

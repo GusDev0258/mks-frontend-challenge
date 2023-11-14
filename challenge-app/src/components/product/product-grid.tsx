@@ -53,7 +53,7 @@ export const ProductGrid = ({itemsList}: ProductGridProps) => {
   },[cartItems])
 
   return (
-  <ProductGridContainer>
+  <ProductGridContainer data-testid="product-grid-list">
     {isLoading && (<Skeleton count={8} width={285} height={218} />)}
     {products && products.map((product: Product) => (
       <Product key={product.id} product={product} onAddToCart={handleAddToCart} />

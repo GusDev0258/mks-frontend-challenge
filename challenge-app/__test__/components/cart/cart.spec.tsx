@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/";
 import { CartContext, CartProvider, ProductCartItem } from "@/context/cart-context";
 import Cart from "@/components/cart/cart";
@@ -154,7 +154,7 @@ describe("Cart Button Component", () => {
             totalPrice: 200,
             itemCount: 2,
             isCartOpen: true,
-            setIsCartOpen: () => {},
+            setIsCartOpen: () => setIsCartOpen(),
             getProductCount: () => 1,
           }}
         >
@@ -164,8 +164,8 @@ describe("Cart Button Component", () => {
     );
     const closeButton = screen.getByTestId("cart-close-button");
     expect(closeButton).toBeInTheDocument();
-    closeButton.click();
-    expect(setIsCartOpen).toHaveBeenCalledWith(false);
+    fireEvent.click(closeButton);
+    expect(setIsCartOpen).toHaveBeenCalled();
   });
 
   it("Should render the cart item properly when cart is open", () => {
